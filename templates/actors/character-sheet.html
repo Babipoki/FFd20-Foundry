@@ -1,0 +1,205 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{#unless hasClasses}}<span class="warning">Your character is missing a class. Some attributes require a class to function.</span>{{/unless}}
+
+  {{!-- NPC Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item active" data-tab="details">{{localize "PF1.Details"}}</a>
+    <a class="item" data-tab="attributes">{{ localize "PF1.Attributes" }}</a>
+    <a class="item" data-tab="defenses">{{ localize "PF1.Defenses" }}</a>
+    <a class="item" data-tab="attacks">{{ localize "PF1.Attacks" }}</a>
+    <a class="item" data-tab="inventory">{{ localize "PF1.Inventory" }}</a>
+    <a class="item" data-tab="feats">{{ localize "PF1.Features" }}</a>
+    <a class="item" data-tab="skills">{{ localize "PF1.Skills" }}</a>
+    <a class="item" data-tab="buffs">{{ localize "PF1.Buffs" }}</a>
+    <a class="item" data-tab="spellbook">{{ localize "PF1.Spells" }}</a>
+    <a class="item" data-tab="biography">{{ localize "PF1.Biography" }}</a>
+    <a class="item" data-tab="notes">{{ localize "PF1.Notes" }}</a>
+  </nav>
+
+  {{!-- NPC Sheet Body --}}
+  <section class="primary-body">
+
+    {{!-- Details --}}
+    <div class="tab details flexcol" data-group="primary" data-tab="details">
+      <div class="header-details flexcol">
+        {{> "systems/pf1/templates/actors/parts/actor-details.html"}}
+      </div>
+    </div>
+
+    <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+
+      {{!-- Ability Scores --}}
+      <ul class="ability-scores flexrow">
+        {{#each data.abilities as |ability id|}}
+        <li class="ability" data-ability="{{id}}">
+          <div class="ability-header flexrow">
+            <input class="ability-damage" name="data.abilities.{{id}}.damage" type="text" title="{{localize "PF1.Damage"}}"
+            value="{{#if ability.damage}}{{ability.damage}}{{/if}}" data-dtype="Number" placeholder="{{localize "PF1.DMG"}}"/>
+            <input class="ability-penalty" name="data.abilities.{{id}}.userPenalty" type="text" title="{{localize "PF1.Penalty"}}"
+            value="{{#if ability.userPenalty}}{{ability.userPenalty}}{{/if}}" data-dtype="Number" placeholder="{{localize "PF1.PNL"}}"/>
+            <input class="ability-drain" name="data.abilities.{{id}}.drain" type="text" title="{{localize "PF1.Drain"}}"
+            value="{{#if ability.drain}}{{ability.drain}}{{/if}}" data-dtype="Number" placeholder="{{localize "PF1.DRN"}}"/>
+          </div>
+          <h4 class="ability-name box-title rollable">{{ability.label}}</h4>
+          <span class="ability-score tooltip">
+            {{numberFormat ability.total decimals=0 sign=false}}
+            <span class="tooltipcontent">
+              @abilities.{{id}}.total : {{ability.total}}<br/>
+              @abilities.{{id}}.value : {{ability.value}}<br/>
+              @abilities.{{id}}.mod : {{ability.mod}}<br/>
+              @abilities.{{id}}.damage : {{ability.damage}}<br/>
+              @abilities.{{id}}.drain : {{ability.drain}}<br/>
+              @abilities.{{id}}.penalty : {{ability.penalty}}<br/>
+              @abilities.{{id}}.base : {{ability.base}}<br/>
+              @abilities.{{id}}.baseMod : {{ability.baseMod}}
+
+              {{#if ability.sourceDetails.length}}
+                <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{/if}}
+            </span>
+          </span>
+          <div class="ability-modifiers flexrow">
+            <span class="ability-mod">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+            <div class="ability-center"></div>
+            <input class="ability-base" name="data.abilities.{{id}}.value" type="text" value="{{ability.value}}" data-dtype="Number" placeholder="10"/>
+          </div>
+        </li>
+        {{/each}}
+      </ul>
+
+      {{!-- Misc --}}
+      <div class="attributes-traits flexrow">
+        <div class="flexcol attributes-root">
+          <ul class="attributes misc-base flexrow">
+            <li class="attribute bab" data-attribute="bab">
+              <h4 class="attribute-name box-title rollable">{{localize "PF1.BABAbbr"}}</h4>
+              <div class="attribute-value tooltip">
+                <span>{{numberFormat data.attributes.bab.total decimals=0 sign=false}}</span>
+                <span class="tooltipcontent">
+                  @attributes.bab.total : {{data.attributes.bab.total}}
+                  {{#if sourceDetails.data.attributes.bab.total.length}}
+                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    {{#each sourceDetails.data.attributes.bab.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                  {{/if}}
+                </span>
+              </div>
+            </li>
+
+            <li class="attribute cmb" data-attribute="cmb">
+              <h4 class="attribute-name box-title rollable">{{localize "PF1.CMBAbbr"}}</h4>
+              <div class="attribute-value tooltip">
+                <span>{{data.attributes.cmb.total}}</span>
+                <span class="tooltipcontent">
+                  @attributes.cmb.total : {{data.attributes.cmb.total}}
+                  {{#if sourceDetails.data.attributes.cmb.total.length}}
+                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    {{#each sourceDetails.data.attributes.cmb.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                  {{/if}}
+                </span>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="attributes misc-base flexrow">
+            <li class="attribute initiative" data-attribute="init">
+
+              <h4 class="attribute-name box-title rollable">{{localize "PF1.Initiative"}}</h4>
+              <div class="attribute-value tooltip">
+                <span>{{data.attributes.init.total}}</span>
+                <span class="tooltipcontent">
+                  @attributes.init.total : {{data.attributes.init.total}}
+                  {{#if sourceDetails.data.attributes.init.total.length}}
+                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    {{#each sourceDetails.data.attributes.init.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                  {{/if}}
+                </span>
+              </div>
+            </li>
+          </ul>
+
+          <ul class="attributes misc-base2 flexrow">
+            <li class="attribute acp" data-attribute="acp">
+              <h4 class="attribute-name box-title">{{localize "PF1.ACP"}}</h4>
+              <div class="attribute-value tooltip">
+                <span>{{data.attributes.acp.total}}</span>
+                <span class="tooltipcontent">@attributes.acp.total : {{data.attributes.acp.total}}</span>
+              </div>
+            </li>
+
+            <li class="attribute maxdex" data-attribute="maxdex">
+              <h4 class="attribute-name box-title">{{localize "PF1.MaxDexShort"}}</h4>
+              <div class="attribute-value tooltip">
+                <span>{{data.attributes.maxDexBonus}}</span>
+                <span class="tooltipcontent">@attributes.maxDexBonus : {{data.attributes.maxDexBonus}}</span>
+              </div>
+            </li>
+          </ul>
+
+          <div class="form-group">
+            <label>{{localize "PF1.CMBAbility"}}</label>
+            <select name="data.attributes.cmbAbility">
+              {{#select data.attributes.cmbAbility}}
+              <option value=""></option>
+              {{#each config.abilities as |v k|}}
+              <option value="{{k}}">{{v}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+
+          <textarea name="data.attributes.cmbNotes" placeholder="{{localize "PF1.CMBAbbr"}} {{localize "PF1.Notes"}}">{{data.attributes.cmbNotes}}</textarea>
+        </div>
+
+        {{!-- Traits --}}
+        {{> "systems/pf1/templates/actors/parts/actor-traits.html"}}
+      </div>
+    </div>
+
+    {{!-- Defenses Tab --}}
+    <div class="tab defenses flexcol" data-group="primary" data-tab="defenses">
+      {{> "systems/pf1/templates/actors/parts/actor-defenses.html"}}
+    </div>
+
+    {{!-- Attacks Tab --}}
+    <div class="tab attacks flexcol" data-group="primary" data-tab="attacks">
+      {{> "systems/pf1/templates/actors/parts/actor-attacks.html" sections=attacks}}
+    </div>
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+      {{> "systems/pf1/templates/actors/parts/actor-inventory.html" sections=inventory}}
+    </div>
+
+    {{!-- Features Tab --}}
+    <div class="tab feats flexcol" data-group="primary" data-tab="feats">
+      {{> "systems/pf1/templates/actors/parts/actor-features.html" sections=features}}
+    </div>
+
+    {{!-- Skills Tab --}}
+    <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+      {{> "systems/pf1/templates/actors/parts/actor-skills-front.html"}}
+    </div>
+
+    {{!-- Buffs Tab --}}
+    <div class="tab buffs flexcol" data-group="primary" data-tab="buffs">
+      {{> "systems/pf1/templates/actors/parts/actor-buffs.html" sections=buffs}}
+    </div>
+
+    {{!-- Spellbook Tab --}}
+    <div class="tab spellbook flexcol" data-group="primary" data-tab="spellbook">
+      {{> "systems/pf1/templates/actors/parts/actor-spellbook-front.html"}}
+    </div>
+
+    {{!-- Biography Tab --}}
+    <div class="tab biography flexcol" data-group="primary" data-tab="biography">
+      {{roll-editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+      {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+    </div>
+  </section>
+</form>

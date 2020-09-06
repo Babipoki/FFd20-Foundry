@@ -1,0 +1,36 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  
+  {{!-- NPC Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+    
+    <div class="header-details flexcol">
+      <div class="header-top flexrow">
+        <h1 class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF1.CharacterName"}}"/>
+        </h1>
+      </div>
+
+      {{!-- Options --}}
+      <div class="flexcol">
+        <ul class="summary options">
+          {{!-- Sell Multiplier --}}
+          <li>
+            <input type="text" name="flags.pf1.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "PF1.HelpSellMultiplierN"}}" data-dtype="Number"
+              title="{{localize "PF1.HelpSellMultiplier"}}" />
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+  
+  <section class="primary-body">
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory flexcol">
+      {{> "systems/pf1/templates/actors/parts/actor-inventory.html" sections=inventory}}
+    </div>
+
+  </section>
+  
+</form>
