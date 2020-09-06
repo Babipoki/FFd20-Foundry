@@ -188,6 +188,6 @@
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "0.6.6",
   "url": "https://github.com/Babipoki/FFd20-Foundry",
-  "manifest": "https://github.com/Babipoki/FFd20-Foundry/blob/master/system.json",
+  "manifest": "https://raw.githubusercontent.com/Babipoki/FFd20-Foundry/master/system.json",
   "download": "https://github.com/Babipoki/FFd20-Foundry/archive/master.zip"
 }
