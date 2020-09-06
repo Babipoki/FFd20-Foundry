@@ -690,7 +690,7 @@ PF1.senses = {
 PF1.skills = {
   "acr": "PF1.SkillAcr",
   "apr": "PF1.SkillApr",
-  "art": "PF1.SkillArt",
+  //"art": "PF1.SkillArt", 
   "blf": "PF1.SkillBlf",
   "clm": "PF1.SkillClm",
   "crf": "PF1.SkillCrf",
@@ -712,12 +712,15 @@ PF1.skills = {
   "kno": "PF1.SkillKNo",
   "kpl": "PF1.SkillKPl",
   "kre": "PF1.SkillKRe",
+  "tec": "PF1.SkillTec", // FFd20 skill
   "lin": "PF1.SkillLin",
-  "lor": "PF1.SkillLor",
+  //"lor": "PF1.SkillLor",
   "per": "PF1.SkillPer",
   "prf": "PF1.SkillPrf",
   "pro": "PF1.SkillPro",
   "rid": "PF1.SkillRid",
+  "pil": "PF1.SkillPil", // FFd20 skill
+  "dri": "PF1.SkillDri", // FFd20 skill
   "sen": "PF1.SkillSen",
   "slt": "PF1.SkillSlt",
   "spl": "PF1.SkillSpl",

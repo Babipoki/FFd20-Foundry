@@ -327,6 +327,10 @@
   "PF1.SkillSwm": "Swim",
   "PF1.SkillUMD": "Use Magic Device",
 
+  "PF1.SkillTec": "Knowledge (Technology)",
+  "PF1.SkillPil": "Pilot",
+  "PF1.SkillDri": "Drive",
+
   "PF1.TargetAlly": "Ally",
   "PF1.TargetCreature": "Creature",
   "PF1.TargetCylinder": "Cylinder",

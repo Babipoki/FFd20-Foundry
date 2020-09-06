@@ -1,8 +1,8 @@
 {
-  "name": "foundryvtt-pf1",
+  "name": "foundryvtt-ffd20",
   "private": true,
   "author": {
-    "name": "Tijmen Bok"
+    "name": "Babipoki Tapipoki"
   },
   "scripts": {
     "build:release": "webpack"
